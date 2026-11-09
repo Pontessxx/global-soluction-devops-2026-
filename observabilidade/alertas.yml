@@ -1,0 +1,31 @@
+groups:
+  - name: rua-acesa-web
+    rules:
+      - alert: SiteForaDoAr
+        expr: probe_success{job="site"} == 0
+        for: 30s
+        labels: { severity: critical }
+        annotations:
+          summary: "Site Rua Acesa fora do ar"
+          description: "A sonda HTTP falhou ou nao recebeu status 200 por mais de 30 s."
+
+      - alert: NginxSemMetricas
+        expr: nginx_up == 0 or absent(nginx_up)
+        for: 30s
+        labels: { severity: critical }
+        annotations:
+          summary: "Prometheus nao consegue ler as metricas do nginx"
+
+      - alert: LatenciaAlta
+        expr: probe_duration_seconds{job="site"} > 0.5
+        for: 1m
+        labels: { severity: warning }
+        annotations:
+          summary: "Latencia do site acima de 500 ms"
+
+      - alert: ConexoesAltas
+        expr: nginx_connections_active > 100
+        for: 1m
+        labels: { severity: warning }
+        annotations:
+          summary: "Mais de 100 conexoes ativas (saturacao)"

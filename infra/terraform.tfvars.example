@@ -1,0 +1,5 @@
+# copie para terraform.tfvars (ignorado pelo git) e preencha
+subscription_id = "00000000-0000-0000-0000-000000000000"
+admin_cidr      = "203.0.113.7/32"
+ssh_public_key  = "ssh-rsa AAAA..."
+repo_url        = "https://github.com/Pontessxx/gs-devops-2026.git"

@@ -1,0 +1,5 @@
+# Excecao documentada: a porta 80 do site precisa ser publica (o entregavel exige URL publica).
+# Mitigacoes: so a 80 fica aberta; a porta admin (SSH/22) e restrita ao IP do admin
+# (variavel admin_cidr, que rejeita 0.0.0.0/0); Prometheus e Grafana escutam so em 127.0.0.1;
+# a porta de metricas do nginx (8081) nao e publicada.
+AVD-AZU-0047

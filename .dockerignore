@@ -1,0 +1,13 @@
+.git
+.github
+.env
+.env.*
+!.env.example
+infra
+observabilidade
+docker-compose.yml
+README.md
+*.md
+*.tfstate*
+*.tfvars
+.terraform

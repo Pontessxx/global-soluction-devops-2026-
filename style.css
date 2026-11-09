@@ -1,0 +1,41 @@
+:root {
+  --bg: #f7f5f6; --surface: #ffffff; --text: #1d1b1c; --muted: #5d575a;
+  --accent: #8a0f3c; --accent-ink: #ffffff; --border: #e3dde0;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131114; --surface: #1e1b1f; --text: #f1edef; --muted: #aaa2a7;
+    --accent: #e0588a; --accent-ink: #131114; --border: #34303a;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 16px; }
+.topo { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 28px; }
+.selo { margin: 0 0 12px; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+h1 { margin: 0 0 12px; font-size: clamp(2.4rem, 8vw, 4rem); line-height: 1.05; color: var(--accent); }
+.lead { max-width: 640px; margin: 0 0 20px; font-size: 1.15rem; }
+nav { display: flex; flex-wrap: wrap; gap: 8px; }
+nav a {
+  padding: 8px 14px; border-radius: 999px; background: var(--accent); color: var(--accent-ink);
+  text-decoration: none; font-weight: 600; font-size: 14px;
+}
+nav a:focus-visible, nav a:hover { outline: 2px solid var(--text); outline-offset: 2px; }
+section { padding: 36px 0 8px; }
+h2 { margin: 0 0 16px; font-size: 1.6rem; }
+h3 { margin: 0 0 6px; font-size: 1.05rem; color: var(--accent); }
+p { margin: 0 0 12px; }
+.grid2 { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 16px; }
+.card, .cards li {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px;
+}
+.cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.equipe li { display: flex; flex-direction: column; gap: 4px; }
+.equipe span { color: var(--muted); font-size: 14px; }
+.passos { padding-left: 22px; }
+.passos li { margin-bottom: 10px; }
+code { background: var(--border); padding: 1px 6px; border-radius: 4px; font-size: .9em; }
+footer { margin-top: 48px; padding: 24px 0; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }

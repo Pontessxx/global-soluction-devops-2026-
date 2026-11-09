@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rua Acesa — MVP CitizenTech</title>
+  <meta name="description" content="Rua Acesa: o cidadão relata poste apagado, a IA confirma e prioriza, e a cidade vê onde está escura. Global Solution 2026.2, FIAP.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="wrap">
+      <p class="selo">FIAP · Global Solution 2026.2 · CitizenTech · Engenharia de Software 4º ano</p>
+      <h1>Rua Acesa</h1>
+      <p class="lead">Poste apagado deixa o trajeto noturno inseguro. Aqui o cidadão relata com uma foto, a IA confirma, o robô prioriza e a Prefeitura recebe o pedido pronto.</p>
+      <nav>
+        <a href="#equipe">Equipe</a>
+        <a href="#problema">Problema</a>
+        <a href="#como">Como funciona</a>
+        <a href="#entrega">Esta entrega</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="equipe">
+      <h2>Equipe</h2>
+      <ul class="cards equipe">
+        <li><strong>Gabriel Diegues Figueiredo Rocha</strong><span>RM 550788</span></li>
+        <li><strong>Pedro Henrique Palladino</strong><span>RM 551180</span></li>
+        <li><strong>Henrique Pontes</strong><span>RM 98036</span></li>
+        <li><strong>Raí Gumieri dos Santos</strong><span>RM 98287</span></li>
+      </ul>
+    </section>
+
+    <section id="problema">
+      <h2>O problema e a ideia</h2>
+      <div class="grid2">
+        <article class="card">
+          <h3>Quem sofre</h3>
+          <p>Quem circula a pé à noite em São Paulo: trabalhadores que voltam tarde, estudantes, mulheres e quem espera em ponto de ônibus.</p>
+        </article>
+        <article class="card">
+          <h3>A dor</h3>
+          <p>Ruas com poste apagado ficam inseguras, e o cidadão não sabe como reclamar nem acompanha se o reparo acontece. Do outro lado, o atendente lê cada reclamação, confere foto, procura o poste e redige o pedido à mão.</p>
+        </article>
+        <article class="card">
+          <h3>Nossa proposta</h3>
+          <p>O cidadão (ou o robô de inspeção) registra o ponto escuro com foto. A IA confirma, o sistema prioriza e encaminha a solicitação, e um mapa mostra onde a cidade está escura.</p>
+        </article>
+        <article class="card">
+          <h3>ODS</h3>
+          <p><strong>11</strong> cidades seguras · <strong>10</strong> expõe a periferia com mais pontos escuros · <strong>9</strong> infraestrutura monitorada com IA e dados abertos.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="como">
+      <h2>Como funciona</h2>
+      <ol class="passos">
+        <li><strong>Relato.</strong> Foto e localização do cidadão, ou leitura de luminosidade do robô de inspeção.</li>
+        <li><strong>Visão computacional.</strong> Um modelo YOLO confirma se a foto mostra poste apagado à noite. Foto diurna fica como inconclusiva.</li>
+        <li><strong>Robô de automação (RPA, Python).</strong> Valida o relato, acha o poste oficial no cadastro da Prefeitura (GeoSampa), junta relatos repetidos do mesmo poste e consulta o clima.</li>
+        <li><strong>Prioridade de 0 a 100.</strong> Pesa a confirmação da IA, o número de relatos, chuva ou céu encoberto à noite, a leitura do robô e os dias em aberto.</li>
+        <li><strong>Solicitação pronta.</strong> Protocolo e texto prontos para o SP156.</li>
+        <li><strong>Pessoa decide.</strong> Um revisor aprova ou rejeita no painel. Nada é enviado sem aprovação humana.</li>
+      </ol>
+      <div class="grid2">
+        <article class="card">
+          <h3>IA responsável</h3>
+          <p>O YOLO e a regra de prioridade sugerem. A decisão final e o envio à Prefeitura são sempre de uma pessoa, com nome e horário na trilha de auditoria.</p>
+        </article>
+        <article class="card">
+          <h3>Privacidade (LGPD)</h3>
+          <p>O único dado pessoal é o contato opcional, guardado como hash com salt. A foto perde EXIF e GPS e é apagada após 30 dias do caso encerrado.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="entrega">
+      <h2>Esta entrega: o MVP no ar por um pipeline DevSecOps</h2>
+      <p>Esta página é o MVP publicado. Nenhuma pessoa publica clicando em botão: tudo passa por container, Terraform e pipeline.</p>
+      <div class="grid2">
+        <article class="card">
+          <h3>Container</h3>
+          <p>Imagem enxuta (nginx sem privilégio), usuário não root, sem segredo dentro. Sobe com <code>docker compose</code>.</p>
+        </article>
+        <article class="card">
+          <h3>Nuvem como código</h3>
+          <p>Terraform cria a rede, o firewall e a VM na Azure. State e variáveis ficam fora do repositório. A porta admin nunca fica aberta para a internet toda.</p>
+        </article>
+        <article class="card">
+          <h3>Pipeline (GitHub Actions)</h3>
+          <p>A cada push: build, <strong>Gitleaks</strong> (segredos), <strong>Semgrep</strong> (código) e <strong>Trivy</strong> (imagem e infraestrutura). Passou, faz o deploy automático.</p>
+        </article>
+        <article class="card">
+          <h3>Observabilidade</h3>
+          <p>Prometheus e Grafana mostram as 4 métricas de ouro (latência, tráfego, erros e saturação) e um alerta dispara quando o site cai.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>Rua Acesa · FIAP Global Solution 2026.2 · CitizenTech</p>
+    </div>
+  </footer>
+</body>
+</html>
