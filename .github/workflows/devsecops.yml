@@ -72,6 +72,18 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     environment: producao
     steps:
+      - name: Login na Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Libera o SSH so para este runner (temporario)
+        run: |
+          RUNNER_IP=$(curl -fsS https://api.ipify.org)
+          az network nsg rule create -g rg-rua-acesa-web --nsg-name nsg-rua-acesa \
+            -n gh-runner --priority 120 --direction Inbound --access Allow --protocol Tcp \
+            --source-address-prefixes "$RUNNER_IP/32" --source-port-ranges '*' \
+            --destination-address-prefixes '*' --destination-port-ranges 22
+          sleep 30
       - name: Atualiza a VM (SSH)
         env:
           SSH_KEY: ${{ secrets.VM_SSH_KEY }}
@@ -80,6 +92,9 @@ jobs:
         run: |
           install -m 600 /dev/null key
           printf '%s\n' "$SSH_KEY" > key
-          ssh -i key -o StrictHostKeyChecking=accept-new azureuser@"$HOST" \
+          ssh -i key -o ConnectTimeout=30 -o StrictHostKeyChecking=accept-new azureuser@"$HOST" \
             "cd ~/app && git pull -q && GRAFANA_ADMIN_PASSWORD='$GRAFANA_PW' docker compose up -d --build"
           rm -f key
+      - name: Fecha o SSH do runner
+        if: always()
+        run: az network nsg rule delete -g rg-rua-acesa-web --nsg-name nsg-rua-acesa -n gh-runner
