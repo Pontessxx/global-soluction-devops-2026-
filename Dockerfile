@@ -1,5 +1,5 @@
 # nginx sem privilegio: roda como usuario nao root (uid 101) na porta 8080
-FROM nginxinc/nginx-unprivileged:1.27-alpine
+FROM nginxinc/nginx-unprivileged:stable-alpine
 
 USER root
 # corrige CVEs de pacotes do sistema que ja tem correcao publicada
